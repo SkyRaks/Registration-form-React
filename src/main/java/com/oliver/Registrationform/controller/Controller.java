@@ -1,6 +1,5 @@
 package com.oliver.Registrationform.controller;
 
-import com.oliver.Registrationform.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -19,20 +18,31 @@ public class Controller {
         return "register";
     }
 
+    @GetMapping("/success")
+    public String getSuccess() {
+        return "success";
+    }
+
+    @GetMapping("/fail")
+    public String getFail() {
+        return "fail";
+    }
+
     @PostMapping("/register")
     public String register(
-//            @RequestBody User user
+//            @Valid User user
             @RequestParam String username,
-            @RequestParam String password,
-            @RequestParam String email
+            @RequestParam String email,
+            @RequestParam String password
     ) {
         String sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+
         int rowsAffected = jdbcTemplate.update(sql, username, email, password);
 
         if (rowsAffected > 0) {
-            return "Registration successful!";
+            return "redirect:/success";
         } else {
-            return "Registration failed!";
+            return "redirect:/fail";
         }
     }
 }
