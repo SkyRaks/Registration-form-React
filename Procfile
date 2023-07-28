@@ -1,1 +1,1 @@
-web: java -jar target/Registration-form.jar
+web: java -jar build/libs/Registration-form-0.0.1-SNAPSHOT.jar
