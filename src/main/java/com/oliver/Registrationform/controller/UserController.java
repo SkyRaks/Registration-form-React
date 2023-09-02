@@ -5,7 +5,11 @@ import com.oliver.Registrationform.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@org.springframework.stereotype.Controller
+import java.util.List;
+
+//@org.springframework.stereotype.Controller
+@RestController
+@RequestMapping("/home")
 public class UserController {
     private UserRepository userRepository;
 
@@ -14,43 +18,48 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/register")
-    public String getRegister() {
-        return "register";
+    @GetMapping("/allusers")
+    public List<User> getAllUsers() {
+        return userRepository.findAllUsers();
     }
 
-    @GetMapping("/login")
-    public String getLogin() {
-        return "login";
-    }
+//    @GetMapping("/register")
+//    public String getRegister() {
+//        return "register";
+//    }
+//
+//    @GetMapping("/login")
+//    public String getLogin() {
+//        return "login";
+//    }
 
-    @GetMapping("/success")
-    public String getSuccess() {
-        return "success";
-    }
+//    @GetMapping("/success")
+//    public String getSuccess() {
+//        return "success";
+//    }
 
-    @GetMapping("/fail")
-    public String getFail() {
-        return "fail";
-    }
+//    @GetMapping("/fail")
+//    public String getFail() {
+//        return "fail";
+//    }
 
-    @PostMapping("/register")
-    public String register(User user) {
-        int savedUser = userRepository.saveUser(user);
-        if (savedUser > 0) {
-            return "redirect:/success";
-        } else {
-            return "redirect:/fail";
-        }
-    }
-
-    @PostMapping("/login")
-    public String login(User user) {
-        int foundUser = userRepository.findUser(user);
-        if (foundUser > 0) {
-            return "redirect:/success";
-        } else {
-            return "redirect:/fail";
-        }
-    }
+//    @PostMapping("/register")
+//    public String register(User user) {
+//        int savedUser = userRepository.saveUser(user);
+//        if (savedUser > 0) {
+//            return "redirect:/success";
+//        } else {
+//            return "redirect:/fail";
+//        }
+//    }
+//
+//    @PostMapping("/login")
+//    public String login(User user) {
+//        int foundUser = userRepository.findUser(user);
+//        if (foundUser > 0) {
+//            return "redirect:/success";
+//        } else {
+//            return "redirect:/fail";
+//        }
+//    }
 }

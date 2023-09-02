@@ -5,16 +5,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public class UserRepository implements DAO{
     private static final String ADD_NEW_USER_SQL = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
     private static final String FIND_USER_SQL = "SELECT COUNT(*) FROM users WHERE email = ? AND password = ?";
+    private static final String FIND_ALL_USERS = "SELECT * FROM users";
 
     private JdbcTemplate jdbcTemplate;
+    private UserRowMapper userRowMapper;
 
     @Autowired
-    public UserRepository(JdbcTemplate jdbcTemplate) {
+    public UserRepository(JdbcTemplate jdbcTemplate, UserRowMapper userRowMapper) {
         this.jdbcTemplate = jdbcTemplate;
+        this.userRowMapper = userRowMapper;
     }
 
     @Override
@@ -33,5 +39,12 @@ public class UserRepository implements DAO{
         Integer rowCount = jdbcTemplate.queryForObject(FIND_USER_SQL, Integer.class, email, password);
         return rowCount;
     }
+
+    @Override
+    public List<User> findAllUsers() {
+        List<User> allUsers = jdbcTemplate.query(FIND_ALL_USERS, userRowMapper);
+        return allUsers;
+    }
+
 
 }

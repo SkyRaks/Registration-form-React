@@ -9,11 +9,11 @@ import java.util.Collections;
 public class RegistrationFormApplication {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(RegistrationFormApplication.class, args);
-		int port = Integer.parseInt(System.getenv("PORT"));
-		SpringApplication app = new SpringApplication(RegistrationFormApplication.class);
-		app.setDefaultProperties(Collections.singletonMap("server.port", String.valueOf(port)));
-		app.run(args);
+		SpringApplication.run(RegistrationFormApplication.class, args);
+//		int port = Integer.parseInt(System.getenv("PORT"));
+//		SpringApplication app = new SpringApplication(RegistrationFormApplication.class);
+//		app.setDefaultProperties(Collections.singletonMap("server.port", String.valueOf(port)));
+//		app.run(args);
 	}
 
 }
