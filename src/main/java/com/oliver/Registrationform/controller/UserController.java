@@ -3,13 +3,15 @@ package com.oliver.Registrationform.controller;
 import com.oliver.Registrationform.model.User;
 import com.oliver.Registrationform.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@org.springframework.stereotype.Controller
 @RestController
 @RequestMapping("/home")
+@CrossOrigin
 public class UserController {
     private UserRepository userRepository;
 
@@ -18,48 +20,23 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/allusers")
+    @GetMapping("/getAllUsers")
     public List<User> getAllUsers() {
         return userRepository.findAllUsers();
     }
 
-//    @GetMapping("/register")
-//    public String getRegister() {
-//        return "register";
-//    }
-//
-//    @GetMapping("/login")
-//    public String getLogin() {
-//        return "login";
-//    }
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
+        return userRepository.saveUser(user);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        User foundUser = userRepository.findUser(user);
 
-//    @GetMapping("/success")
-//    public String getSuccess() {
-//        return "success";
-//    }
-
-//    @GetMapping("/fail")
-//    public String getFail() {
-//        return "fail";
-//    }
-
-//    @PostMapping("/register")
-//    public String register(User user) {
-//        int savedUser = userRepository.saveUser(user);
-//        if (savedUser > 0) {
-//            return "redirect:/success";
-//        } else {
-//            return "redirect:/fail";
-//        }
-//    }
-//
-//    @PostMapping("/login")
-//    public String login(User user) {
-//        int foundUser = userRepository.findUser(user);
-//        if (foundUser > 0) {
-//            return "redirect:/success";
-//        } else {
-//            return "redirect:/fail";
-//        }
-//    }
+        if (foundUser != null) {
+            return ResponseEntity.ok(foundUser);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+        }
+    }
 }

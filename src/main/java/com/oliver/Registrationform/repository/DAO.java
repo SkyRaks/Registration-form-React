@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface DAO {
-    int saveUser(User user);
+    User saveUser(User user);
 
-    int findUser(User user);
+    User findUser(User user);
 
     List<User> findAllUsers();
 }
