@@ -51,7 +51,7 @@ task npmBuild(type: NpmTask) {
 }
 
 task copyReactBuild(type: Copy) {
-	from 'registration-form-frontend/src'
+	from 'registration-form-frontend/public'
 	into 'src/main/resources/static'
 }
 
