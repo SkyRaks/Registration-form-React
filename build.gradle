@@ -48,7 +48,7 @@ tasks.named('test') {
 
 
 task copyReactBuild(type: Copy) {
-	from 'registration-form-frontend/src'
+	from 'registration-form-frontend/src/App.js'
 	into 'src/main/resources/static'
 }
 
