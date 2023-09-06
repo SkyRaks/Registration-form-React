@@ -46,13 +46,14 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-task npmBuild(type: NpmTask) {
-	args = ['run', 'build']
-}
 
 task copyReactBuild(type: Copy) {
 	from 'registration-form-frontend/src'
 	into 'src/main/resources/static'
+}
+
+task npmBuild(type: NpmTask) {
+	args = ['run', 'build']
 }
 
 build.dependsOn(npmBuild)
